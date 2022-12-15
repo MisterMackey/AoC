@@ -23,14 +23,18 @@ class Sensor:
 def map_sensor(ints: list[int]) -> Sensor:
     return Sensor(ints[0], ints[1], ints[2], ints[3])
 
-def find_nearest_sensor(x, y, sensorlist) -> Sensor:
+def find_nearest_sensor(x, y, sensorlist) -> tuple[int, Sensor]:
     def manhattan(sensor):
         return (abs(x-sensor.x) + abs(y-sensor.y), sensor)
     distances = list(map(manhattan, sensorlist))
     return min(distances, key=lambda x: x[0])
 
-#afterwards: if before that point (in x dim), move the diff in x twice, then move the diff in distance
-#if before, move diff in distance
+def in_range_of_any_sensor(x,y, sensorlist) -> bool:
+    for sensor in sensorlist:
+        dist_to_sensor = abs(x-sensor.x) + abs(y-sensor.y)
+        if dist_to_sensor <= sensor.manhattan_distance:
+            return True
+    return False
 
 def part_one(test):
     input = get_input(test)
@@ -57,27 +61,41 @@ def part_two(test):
     input = get_input(test)
     int_input = list(map(ints, input))
     sensors = list(map(map_sensor, int_input))
-    position_not_present = set()
-    max_row = 20 if test else 4000000
-    for row_under_consideration in range(0, max_row+1):
-        if row_under_consideration % 10000 == 0:
-            print('at row {0}'.format(row_under_consideration))
-        for sensor in sensors:
-            distance_to_row = abs(sensor.y - row_under_consideration)
-            if sensor.manhattan_distance >= distance_to_row:
-                #this if block is for sensors that 'block' a part of the row
-                #we only need to store the x values since y is pinned
-                #we store every x in x plusminus the difference between manhanttan distance and row distance
-                radius = sensor.manhattan_distance - distance_to_row
-                for x in range(sensor.x - radius, sensor.x + radius+1):
-                    position_not_present.add((x, row_under_consideration))
+    sensors.sort(key= lambda x: x.manhattan_distance)
+    for sensor in sensors:
+        print('doing sensor at {0},{1}'.format(sensor.x, sensor.y))
+        dist = sensor.manhattan_distance + 1
+        x,y = sensor.x, sensor.y - dist
+        for i in range(0, dist):
+            if y > -1 and x > -1 and not in_range_of_any_sensor(x,y, sensors):
+                print(x,y)
+                answer = x*4000000+y
+                print(answer)
+                return
             else:
-                continue
-    print('finding...')
-    for x in range(0, max_row+1):
-        for y in range(0, max_row+1):
-            if (x,y) in position_not_present:
-                continue
+                x,y = x+1, y+1
+        for i in range(0, dist):
+            if y > -1 and x > -1 and not in_range_of_any_sensor(x,y, sensors):
+                print(x,y)
+                answer = x*4000000+y
+                print(answer)
+                return
             else:
-                print((x,y))
-                break
+                x,y = x-1, y+1
+        for i in range(0, dist):
+            if y > -1 and x > -1 and not in_range_of_any_sensor(x,y, sensors):
+                print(x,y)
+                answer = x*4000000+y
+                print(answer)
+                return
+            else:
+                x,y = x-1, y-1
+        for i in range(0, dist):
+            if y > -1 and x > -1 and not in_range_of_any_sensor(x,y, sensors):
+                print(x,y)
+                answer = x*4000000+y
+                print(answer)
+                return
+            else:
+                x,y = x+1, y-1
+
