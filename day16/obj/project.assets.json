@@ -8,6 +8,15 @@
           "build/netstandard1.0/coverlet.collector.targets": {}
         }
       },
+      "Dijkstra.NET/1.2.1": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard1.3/Dijkstra.NET.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Dijkstra.NET.dll": {}
+        }
+      },
       "Microsoft.CodeCoverage/17.3.2": {
         "type": "package",
         "compile": {
@@ -1861,6 +1870,19 @@
         "coverlet-icon.png",
         "coverlet.collector.3.1.2.nupkg.sha512",
         "coverlet.collector.nuspec"
+      ]
+    },
+    "Dijkstra.NET/1.2.1": {
+      "sha512": "qf/0y/HTmetbXShlU1Ry2wqEmIDj2Tp559Xye8BCASwHGhg/TdwQBG/euKKf5H/Ccjsv1ACSl8M330F0rmvv/w==",
+      "type": "package",
+      "path": "dijkstra.net/1.2.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "dijkstra.net.1.2.1.nupkg.sha512",
+        "dijkstra.net.nuspec",
+        "lib/net40/Dijkstra.NET.dll",
+        "lib/netstandard1.3/Dijkstra.NET.dll"
       ]
     },
     "Microsoft.CodeCoverage/17.3.2": {
@@ -6107,6 +6129,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "Dijkstra.NET >= 1.2.1",
       "Microsoft.NET.Test.Sdk >= 17.3.2",
       "System.Text.RegularExpressions >= 4.3.1",
       "coverlet.collector >= 3.1.2",
@@ -6151,6 +6174,10 @@
       "net7.0": {
         "targetAlias": "net7.0",
         "dependencies": {
+          "Dijkstra.NET": {
+            "target": "Package",
+            "version": "[1.2.1, )"
+          },
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
             "version": "[17.3.2, )"

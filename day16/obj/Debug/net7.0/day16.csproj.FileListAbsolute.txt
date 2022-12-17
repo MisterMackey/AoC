@@ -96,3 +96,4 @@
 /mnt/dev/Learning/AoC/Days/day16/obj/Debug/net7.0/day16.pdb
 /mnt/dev/Learning/AoC/Days/day16/obj/Debug/net7.0/day16.genruntimeconfig.cache
 /mnt/dev/Learning/AoC/Days/day16/obj/Debug/net7.0/ref/day16.dll
+/mnt/dev/Learning/AoC/Days/day16/bin/Debug/net7.0/Dijkstra.NET.dll

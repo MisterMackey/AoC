@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "ynGhiUR+I79jbNJ3NAHGtEGKtM9q+t/QRk+umzzERZdAin1CHQklCizEPc0NLVNmEN5wmaEyCwtgq6FrsIRDzg==",
+  "dgSpecHash": "kvZuHZIvRYpUS6iYfikMZRRLstx/ReGIwLJqtUXGITWh2hx6gsaSP61rorMT72g6nDTuk50t70TlSCre9z66Vw==",
   "success": true,
   "projectFilePath": "/mnt/dev/Learning/AoC/Days/day16/day16.csproj",
   "expectedPackageFiles": [
     "/home/mrmackey/.nuget/packages/coverlet.collector/3.1.2/coverlet.collector.3.1.2.nupkg.sha512",
+    "/home/mrmackey/.nuget/packages/dijkstra.net/1.2.1/dijkstra.net.1.2.1.nupkg.sha512",
     "/home/mrmackey/.nuget/packages/microsoft.codecoverage/17.3.2/microsoft.codecoverage.17.3.2.nupkg.sha512",
     "/home/mrmackey/.nuget/packages/microsoft.csharp/4.0.1/microsoft.csharp.4.0.1.nupkg.sha512",
     "/home/mrmackey/.nuget/packages/microsoft.net.test.sdk/17.3.2/microsoft.net.test.sdk.17.3.2.nupkg.sha512",

@@ -1,3 +1,4 @@
+using System.Xml.Serialization;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using System;
@@ -9,7 +10,7 @@ namespace day16
 {
     public class Solution
     {
-        private const int answerListSize = 1000*1000*10;
+        private const int answerListSize = 1000*1000*100;
         private List<(Stack<Room> guyPath, Stack<Room> elephantPath, int score)> centralListOfPaths;
         private SpinLock spinlock;
         private ulong paths =0;
@@ -48,7 +49,7 @@ namespace day16
             return biggestRelease.score;
         }
 
-        public int PartTwo(bool test)
+        public int PartTwo(bool test, int timeConstraint)
         {
             var input = GetInput(test);
             var rooms = ParseInput(input);
@@ -74,14 +75,57 @@ namespace day16
                 }
             }
             spinlock = new SpinLock();
+            var extraspinlock = new SpinLock();
+            int counter = 0;
             var roomsToBotherWith = rooms.Where(x => x.flowRate > 0).ToList();
             int timeLimit = 26;
             centralListOfPaths = new List<(Stack<Room> guyPath, Stack<Room> elephantPath, int score)>(answerListSize);
             var firstRoom = new Stack<Room>();
             firstRoom.Push(rooms.First(x => x.name == "AA"));
-            CalculateNextPossibleStepsPartTwo(0, timeLimit, timeLimit, firstRoom, firstRoom, roomsToBotherWith, distances, true);
-            var biggestRelease = centralListOfPaths.MaxBy(x => x.score);
-            return biggestRelease.score;
+            //this works only if both actors run out of time and don't need to cooperate
+            var AllPossiblePathsGuy = CalculateNextPossibleSteps(0, timeLimit, firstRoom, roomsToBotherWith, distances, timeConstraint);
+            Console.WriteLine($"{AllPossiblePathsGuy.Count} paths to check");
+            var bestPath = AllPossiblePathsGuy.MaxBy(x => x.score);
+            int highscore = bestPath.score;
+            Parallel.ForEach(AllPossiblePathsGuy,
+            new ParallelOptions{MaxDegreeOfParallelism = 12},
+            path =>
+            {
+                bool cacq = false;
+                extraspinlock.TryEnter(ref cacq);
+                if (cacq)
+                {
+                    counter++;
+                    if (counter % 10000 ==0) Console.WriteLine($"done {counter}");
+                    extraspinlock.Exit();
+                }
+                if (path.score < highscore/2)
+                {
+                    return;
+                }
+                //find the best path for the elephant given the path of the guy..
+                var roomsLeft = roomsToBotherWith.Where(x => !path.Item1.Contains(x)).ToList();
+                var allElephantPaths = CalculateNextPossibleSteps(path.score, timeLimit, firstRoom, roomsLeft, distances, 0);
+                var bestElephantPathInThisCase = allElephantPaths.MaxBy(x => x.score);
+                if (highscore > bestElephantPathInThisCase.score)
+                {
+                    return;
+                }
+                else
+                {
+                    bool acq = false;
+                    spinlock.TryEnter(ref acq);
+                    if (acq)
+                    {
+                        if (highscore < bestElephantPathInThisCase.score)
+                        {
+                            highscore = bestElephantPathInThisCase.score;
+                        }
+                        spinlock.Exit();
+                    }
+                }
+            });
+            return highscore;
         }
 
         private List<(Stack<Room>, Stack<Room>, int score)> ResizeAnswerList()
@@ -98,7 +142,7 @@ namespace day16
             if (acquired)
             {
                 centralListOfPaths.Add(answer);
-                if (++paths % 1000000 == 0) Console.WriteLine($"calculated {paths} paths");
+                if (++paths % 1000 == 0) Console.WriteLine($"calculated {paths} paths");
                 if (centralListOfPaths.Count == answerListSize-1)
                 {
                     var oldList = ResizeAnswerList();
@@ -117,10 +161,11 @@ namespace day16
                                                                         int timeRemaining,
                                                                         Stack<Room> visitedSoFar,
                                                                         List<Room> allRoomsToVisit,
-                                                                        Dictionary<string,Dictionary<string,int>> distances)
+                                                                        Dictionary<string,Dictionary<string,int>> distances,
+                                                                        int extraTimeConstraint = 0)
         {
             var roomsToCheck = allRoomsToVisit.Where(x => !visitedSoFar.Contains(x)).ToList();
-            if (timeRemaining <= 2
+            if (timeRemaining <= (2+extraTimeConstraint)
                 || roomsToCheck.Count == 0) //exit condition, no need to check anymore, just return the given list
             {
                 //Console.WriteLine("Done 1 path");
@@ -136,12 +181,15 @@ namespace day16
                 if (timeleft < 0)
                 {
                     visited.Pop();
-                    continue;
+                    retlist.Add((visitedSoFar, runningScore));
                 }
-                int score = timeleft*room.flowRate + runningScore;
-                //REEECCUUURRRSSIIIIIOOOOON
-                var subPaths = CalculateNextPossibleSteps(score, timeleft, visited, allRoomsToVisit, distances);
-                retlist.AddRange(subPaths);
+                else
+                {
+                    int score = timeleft*room.flowRate + runningScore;
+                    //REEECCUUURRRSSIIIIIOOOOON
+                    var subPaths = CalculateNextPossibleSteps(score, timeleft, visited, allRoomsToVisit, distances, extraTimeConstraint);
+                    retlist.AddRange(subPaths);
+                }
             }
             return retlist;
         }
