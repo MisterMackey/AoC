@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "H2HPJB2x9aX/3uSGOVEmOk2TbLHgCD8vLPiNYiYsqqBodbBpQGFz8u0Vy/NpIBVPJr17yQyH4TVhyrVziFtDJQ==",
+  "dgSpecHash": "RiREN1xJN+8GcTEIcIlxEpee5V6kXmN2fiBeo08dP3Wsuq3tkyXD/ADL94ZWup6M2n2juI9R7uJ3GpvHiboMdg==",
   "success": true,
   "projectFilePath": "/mnt/dev/Learning/AoC/Days/day11/day11.csproj",
   "expectedPackageFiles": [
@@ -96,7 +96,7 @@
     "/home/mrmackey/.nuget/packages/xunit.extensibility.core/2.4.2/xunit.extensibility.core.2.4.2.nupkg.sha512",
     "/home/mrmackey/.nuget/packages/xunit.extensibility.execution/2.4.2/xunit.extensibility.execution.2.4.2.nupkg.sha512",
     "/home/mrmackey/.nuget/packages/xunit.runner.visualstudio/2.4.5/xunit.runner.visualstudio.2.4.5.nupkg.sha512",
-    "/home/mrmackey/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.0/microsoft.aspnetcore.app.ref.7.0.0.nupkg.sha512"
+    "/home/mrmackey/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.1/microsoft.aspnetcore.app.ref.7.0.1.nupkg.sha512"
   ],
   "logs": []
 }
