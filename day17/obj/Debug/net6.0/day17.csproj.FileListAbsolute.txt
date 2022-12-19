@@ -1,0 +1,15 @@
+/mnt/dev/Learning/AoC/Days/day17/obj/Debug/net6.0/day17.csproj.AssemblyReference.cache
+/mnt/dev/Learning/AoC/Days/day17/obj/Debug/net6.0/day17.GeneratedMSBuildEditorConfig.editorconfig
+/mnt/dev/Learning/AoC/Days/day17/obj/Debug/net6.0/day17.AssemblyInfoInputs.cache
+/mnt/dev/Learning/AoC/Days/day17/obj/Debug/net6.0/day17.AssemblyInfo.cs
+/mnt/dev/Learning/AoC/Days/day17/obj/Debug/net6.0/day17.csproj.CoreCompileInputs.cache
+/mnt/dev/Learning/AoC/Days/day17/bin/Debug/net6.0/day17
+/mnt/dev/Learning/AoC/Days/day17/bin/Debug/net6.0/day17.deps.json
+/mnt/dev/Learning/AoC/Days/day17/bin/Debug/net6.0/day17.runtimeconfig.json
+/mnt/dev/Learning/AoC/Days/day17/bin/Debug/net6.0/day17.dll
+/mnt/dev/Learning/AoC/Days/day17/bin/Debug/net6.0/day17.pdb
+/mnt/dev/Learning/AoC/Days/day17/obj/Debug/net6.0/day17.dll
+/mnt/dev/Learning/AoC/Days/day17/obj/Debug/net6.0/refint/day17.dll
+/mnt/dev/Learning/AoC/Days/day17/obj/Debug/net6.0/day17.pdb
+/mnt/dev/Learning/AoC/Days/day17/obj/Debug/net6.0/day17.genruntimeconfig.cache
+/mnt/dev/Learning/AoC/Days/day17/obj/Debug/net6.0/ref/day17.dll

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "BQgMHZWhKhftNzsWGIBOZoT6BWv8I7KgB+liDTeM3pbQHAt1VzZPpQDRQx/seplqBdSOlCtjnUGk+sSsI1HV7Q==",
+  "success": true,
+  "projectFilePath": "/mnt/dev/Learning/AoC/Days/day17/day17.csproj",
+  "expectedPackageFiles": [
+    "/home/mrmackey/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.12/microsoft.aspnetcore.app.ref.6.0.12.nupkg.sha512",
+    "/home/mrmackey/.nuget/packages/microsoft.netcore.app.host.linux-x64/6.0.12/microsoft.netcore.app.host.linux-x64.6.0.12.nupkg.sha512"
+  ],
+  "logs": []
+}
